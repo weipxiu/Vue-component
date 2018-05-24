@@ -14,8 +14,11 @@
 				:closeable="false" 
 				:showicon="true" 
 				@close-click="closeHandle"
+				ref="aa"
 			>		
 			</m-alert>
+
+			<div ref='bb'>aasdasd</div>
 
 			<m-alert type="error">
 				<template slot="titleTmp">
@@ -124,12 +127,27 @@
 				}
 			})
 
-			new Vue({
+			var vm = new Vue({
 				el:"#app",
+				data:{
+					arr:{
+						movies:[],
+						page:1,
+						size:6
+					}
+				},
 				methods:{
 					closeHandle(){
 						alert('关闭后做一些事情');
+						//console.log(this.$root.$el);
+						console.log(this.$refs.bb);
 					}
+				},
+				mounted:function(){
+					//console.log(this.$refs.aa.$el);
+					let bbb = this.arr.size
+					this.arr.size = 10;
+					console.log(bbb)//解构赋值无法进行双向数据绑定
 				}
 			});
 
