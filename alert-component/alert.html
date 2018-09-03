@@ -1,110 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title></title>
-        <link rel="stylesheet" type="text/css" href="./fontFace.css">
-		<script src="../vue.js"></script>
-	</head>
 
-	<body>
-		<div id="app">
-			<m-alert 
-				type="warning"  
-				:closeable="false" 
-				:showicon="true" 
-				@close-click="closeHandle"
-				ref="aa"
-			>		
-			</m-alert>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./fontFace.css">
+	<script src="../vue.js"></script>
+</head>
 
-			<div ref='bb'>aasdasd</div>
-
-			<m-alert type="error">
-				<template slot="titleTmp">
-					<p>我是定制的提醒信息</p>
-					<p>我是定制的提醒信息</p>
-					<p>我是定制的提醒信息</p>
-					<p>我是定制的提醒信息</p>
-					<p>我是定制的提醒信息</p>
-					<p>我是定制的提醒信息</p>
-				</template>
-				
-				<i slot="iconTemp" class="m-icon m-icon-menu"></i>
-
-			</m-alert>
-			<div>
-				/*
-				alert提醒框有四种状态：
-						info success error warning
-
-				设置的props：
-					type 提醒框类型 默认为info
-					title 提示信息 '这里有一个消息要提示'
-					closeable 是否禁用关闭 默认为true
-					showicon 是否显示图标 默认为fasle
-					style 设置提醒框样式 默认为{}
-
-				定制模板：
-					slot为iconTmp  定制icon模板
-					slot为titleTmp 定制提示信息结构
-
-				监控状态变化：
-					事件名close-click   点击关闭X触发
-
-			*/
-			</div>
+<body>
+	<div id="app">
+		<m-alert type="warning" :closeable="false" :showicon="true" @close-click="closeHandle" ref="aa">
+		</m-alert>
+		<div ref='bb'>aasdasd</div>
+		<m-alert type="error">
+			<template slot="titleTmp">
+				<p>我是定制的提醒信息</p>
+				<p>我是定制的提醒信息</p>
+				<p>我是定制的提醒信息</p>
+				<p>我是定制的提醒信息</p>
+				<p>我是定制的提醒信息</p>
+				<p>我是定制的提醒信息</p>
+			</template>
+			<i slot="iconTemp" class="m-icon m-icon-menu"></i>
+		</m-alert>
+		<div>
+			/* alert提醒框有四种状态： info success error warning 设置的props： type 提醒框类型 默认为info title 提示信息 '这里有一个消息要提示' closeable 是否禁用关闭 默认为true
+			showicon 是否显示图标 默认为fasle style 设置提醒框样式 默认为{} 定制模板： slot为iconTmp 定制icon模板 slot为titleTmp 定制提示信息结构 监控状态变化： 事件名close-click
+			点击关闭X触发 */
 		</div>
-		<script>
-			/*
-				alert提醒框有四种状态：
-						info success error warning
+	</div>
+	<script>
+		/*
+			alert提醒框有四种状态：
+					info success error warning
 
-				设置的props：
-					type 提醒框类型 默认为info
-					title 提示信息 '这里有一个消息要提示'
-					closeable 是否禁用关闭 默认为true
-					showicon 是否显示图标 默认为fasle
-					style 设置提醒框样式 默认为{}
+			设置的props：
+				type 提醒框类型 默认为info
+				title 提示信息 '这里有一个消息要提示'
+				closeable 是否禁用关闭 默认为true
+				showicon 是否显示图标 默认为fasle
+				style 设置提醒框样式 默认为{}
 
-				定制模板：
-					slot为iconTmp  定制icon模板
-					slot为titleTmp 定制提示信息结构
+			定制模板：
+				slot为iconTmp  定制icon模板
+				slot为titleTmp 定制提示信息结构
 
-				监控状态变化：
-					事件名close-click   点击关闭X触发
-
-			*/
-
-			Vue.component("m-alert",{
-				props:{
-					type:{
-						type:String,
-						default:"info"
-					},
-					title:{
-						type:String,
-						default:'这里有一个消息要提示'
-					},
-					closeable:{
-						type:Boolean,
-						default:true
-					},
-					showicon:{
-						type:Boolean,
-						default:false
-					},
-					style:String
+			监控状态变化：
+				事件名close-click   点击关闭X触发
+		*/
+		Vue.component("m-alert", {
+			props: {
+				type: {
+					type: String,
+					default: "info"
 				},
-				computed:{
-					classes(){
-						return `m-alert-${this.type}`
-					},
-					iconClass(){
-						return `m-icon-${this.type}`
-					}
+				title: {
+					type: String,
+					default: '这里有一个消息要提示'
 				},
-				template:`
+				closeable: {
+					type: Boolean,
+					default: true
+				},
+				showicon: {
+					type: Boolean,
+					default: false
+				},
+				style: String
+			},
+			computed: {
+				classes() {
+					return `m-alert-${this.type}`
+				},
+				iconClass() {
+					return `m-icon-${this.type}`
+				}
+			},
+			template: `
 					<div class="m-alert" :class="[classes]" style="style">
 						<slot name="iconTemp">
 							<i v-if="showicon" class="m-icon" :class="[iconClass]"></i>
@@ -119,38 +92,38 @@
 						</div>
 					</div>
 				`,
-				methods:{
-					closeHandle(){
-						alert(123)
-						this.$emit("close-click")
-					}
+			methods: {
+				closeHandle() {
+					alert(123)
+					this.$emit("close-click")
 				}
-			})
+			}
+		})
 
-			var vm = new Vue({
-				el:"#app",
-				data:{
-					arr:{
-						movies:[],
-						page:1,
-						size:6
-					}
-				},
-				methods:{
-					closeHandle(){
-						alert('关闭后做一些事情');
-						//console.log(this.$root.$el);
-						console.log(this.$refs.bb);
-					}
-				},
-				mounted:function(){
-					//console.log(this.$refs.aa.$el);
-					let bbb = this.arr.size
-					this.arr.size = 10;
-					console.log(bbb)//解构赋值无法进行双向数据绑定
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				arr: {
+					movies: [],
+					page: 1,
+					size: 6
 				}
-			});
+			},
+			methods: {
+				closeHandle() {
+					alert('关闭后做一些事情');
+					//console.log(this.$root.$el);
+					console.log(this.$refs.bb);
+				}
+			},
+			mounted: function () {
+				//console.log(this.$refs.aa.$el);
+				let bbb = this.arr.size
+				this.arr.size = 10;
+				console.log(bbb)//解构赋值无法进行双向数据绑定
+			}
+		});
+	</script>
+</body>
 
-		</script>
-	</body>
 </html>
