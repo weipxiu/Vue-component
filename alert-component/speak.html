@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./fontFace.css">
+	<script src="../vue2.6.js"></script>
+
+</head>
+
+<body>
+	<div id="app">
+		<div id="audio"></div>
+		<p>{{text1}} <button @click="speak(text1)">点击语音播报</button></p>
+
+		<textarea name="" id="" cols="30" rows="10" v-model="my_text"></textarea>
+		<button @click="speak(my_text)">你输入啥，我都能播报</button>
+	</div>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: function () {
+				return {
+					text1: '当前demo来自唯品秀前端技术博客，网址:https://www.weipxiu.com',
+					my_text: ''
+				}
+			},
+			methods: {
+				speak(text){
+					new Audio(
+					'http://tts.baidu.com/text2audio?cuid=baiduid&lan=zh&ctp=1&pdt=311&tex='+text
+				).play();
+				}
+			},
+			created() {
+				//this.speak('当前demo来自唯品秀前端技术博客，网址:https://www.weipxiu.com')
+			},
+			mounted: function () {
+			}
+		});
+	</script>
+</body>
+
+</html>
