@@ -5,7 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="./fontFace.css">
-	<script src="../vue.js"></script>
+	<script src="../vue2.6.js"></script>
 </head>
 
 <body>
@@ -13,17 +13,29 @@
 		<m-alert type="warning" :closeable="false" :showicon="true" @close-click="closeHandle(1)" ref="aa">
 		</m-alert>
 		<div ref='bb'>aasdasd</div>
+
 		<m-alert type="error">
+			<!-- v2.6以前方式 -->
 			<template slot="titleTmp">
-				<p>我是定制的提醒信息</p>
-				<p>我是定制的提醒信息</p>
-				<p>我是定制的提醒信息</p>
-				<p>我是定制的提醒信息</p>
-				<p>我是定制的提醒信息</p>
-				<p>我是定制的提醒信息</p>
+				<p>我是v2.6之前方式</p>
 			</template>
 			<i slot="iconTemp" class="m-icon m-icon-menu"></i>
 		</m-alert>
+
+		<m-alert type="error">
+				<!-- 2.6版本以后方式,注意，新版中不允许出现相同名字为tit_t的两个template-->
+
+				<!-- 匿名slot -->
+				<!-- <template v-slot:default>
+					我是子组件传过来的数据：
+				</template> -->
+	
+				<!-- 有名字slot -->
+				<template v-slot:tit_t="{ title }">
+						我是v2.6之后新的方式，接收子组件传过来的数据：{{ title }}
+				</template>
+				<i slot="iconTemp" class="m-icon m-icon-menu"></i>
+			</m-alert>
 		<div>
 			/* alert提醒框有四种状态： info success error warning 设置的props： type 提醒框类型 默认为info title 提示信息 '这里有一个消息要提示' closeable 是否禁用关闭 默认为true
 			showicon 是否显示图标 默认为fasle style 设置提醒框样式 默认为{} 定制模板： slot为iconTmp 定制icon模板 slot为titleTmp 定制提示信息结构 监控状态变化： 事件名close-click
@@ -67,7 +79,7 @@
 					type: Boolean,
 					default: false
 				},
-				style: String
+				styleType: String
 			},
 			computed: {
 				classes() {
@@ -78,13 +90,13 @@
 				}
 			},
 			template: `
-					<div class="m-alert" :class="[classes]" style="style">
+					<div class="m-alert" :class="[classes]" style="styleType">
 						<slot name="iconTemp">
 							<i v-if="showicon" class="m-icon" :class="[iconClass]"></i>
 						</slot>
 						
 						<div class="m-content">
-							<slot name="titleTmp">
+							<slot name="tit_t" :title="title">
 								<span class="m-message">{{title}}</span>
 							</slot>
 							<i v-if="!closeable" class="m-closebtn m-icon-close" @click="closeHandle"></i>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./fontFace.css">
+	<script src="../vue2.6.js"></script>
+</head>
+
+<body>
+	<div id="app">
+
+	</div>
+	<script>
+		var myMixin = {
+			data: function () {
+				return {
+					sum: "我是mixins中的sum"
+				}
+			},
+			created: function () {
+				// this.hello();
+				// this.mixinsHand();
+				// console.log(this.sum)
+				this.xiangtong();
+			},
+			methods: {
+				hello: function () {
+					console.log(this.sum)
+				},
+				xiangtong(){
+						console.log('我是mixins中的相同方法')
+				}
+			}
+		}
+
+		var vm = new Vue({
+			mixins: [myMixin],
+			el: "#app",
+			data: function () {
+				return {
+					sum: "我是父作用域中的sum"
+				}
+			},
+			methods: {
+				mixinsHand(data) {
+					console.log("我并不是mixins中定义的方法，但我却还是能在mixins中触发！")
+				},
+				xiangtong() {
+					console.log('我是父作用域中的xiangtong方法')
+				}
+			},
+			mounted: function () {
+				// this.hello();
+				// console.log(this.sum)
+				this.xiangtong();
+			}
+		});
+	</script>
+</body>
+
+</html>
