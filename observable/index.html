@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<script src="../vue2.6.js"></script>
+
+</head>
+
+<body>
+	<div id="app">
+		<div>
+			<p>你点+-，看我能不能根据状态去动态改变</p>
+			<label for="bookNum">数量</label>
+			<button @click="setCount(count+1)">+</button>
+			<span @click="add">{{count}}</span>
+			<button @click="setCount(count-1)">-</button>
+		</div>
+	</div>
+	<script>
+		//import { store, mutations } from './store' // Vue2.6新增API Observable
+		const store = Vue.observable({ count: 0 })  //定义一个变量
+		const mutations = {  //定义一个方法，将来在组件中调用这个方法从而能改变上面的变量count值
+			setCount (count) {
+				store.count = count
+			}
+		}
+
+		new Vue({
+			el: "#app",
+			data: {
+				arr: {
+					movies: [],
+					page: 1,
+					size: 6
+				}
+			},
+			computed: {
+				count() {
+					return store.count //用于去渲染之前Observable中定义的变量count
+				}
+			},
+			methods: {
+				setCount: mutations.setCount,
+				//直接去修改count
+				add(){
+					store.count++
+				}
+			}
+		});
+
+	</script>
+</body>
+
+</html>
